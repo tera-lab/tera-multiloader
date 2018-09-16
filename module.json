@@ -1,0 +1,7 @@
+{
+    "disableAutoUpdate": false,
+    "options": {
+        "loadOn": "startup"
+    },
+    "servers": ["https://raw.githubusercontent.com/tera-lab/tera-multiloader/master/"]
+}
