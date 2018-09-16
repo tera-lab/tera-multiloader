@@ -144,7 +144,7 @@
 		"node_modules/xtend/mutable.js": "71a38649c77408217483f81f55daee1d6646d6c670e3d034a4482cb3453886e9",
 		"node_modules/xtend/package.json": "9d3293841d4fe632cd6c61cd27c3469beee6d2dd88bf80024796f271ad5c4624",
 		"node_modules/xtend/test.js": "c3d96d55bb0e1a0e97c9f7d09c6245339edaf940c323582226b6a4562687ae67",
-		"proc.js": "b4837b3523b10bf76d4d9ba442a4f8a4b6f936df0a55b7af2eb400cb6c8db4b8",
+		"proc.js": "d1faf9429bebd532b01e533714de33a306037fa23273d2b64584bc05fb95323e",
 		"reg.js": "b057f159f3ad6bb152db140fdcaa88cb708cba38d4a97c6987e38e2021e66ae9"
 	}
 }

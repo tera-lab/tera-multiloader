@@ -13,7 +13,7 @@ module.exports = function Process(onStartup, onExit) {
                         newProcesses[proc.pid] = proc
                     }
                 } else {
-                    newProcesses[proc.pid] = proc
+                    newProcesses[proc.pid] = Processes[proc.pid]
                 }
             }
         }
