@@ -22,14 +22,18 @@ module.exports = function MultiLoader(region) {
     // check dummy is available (roughly)
     clients.dummies = clients.dummies.filter(cli => fs.existsSync(cli))
 
+    // Forcing start origin first
+    if(clients.origin)
+        reg.setLocation(clients.origin)
+
     Process(onStartup, onExit)
-    console.log(`[multiloader] ${clients.dummies.length} clients are ready to launch!`)
+    console.log(`[multiloader] ${clients.dummies.length} dummy clients available!`)
 
     // Process callbacks
     function onStartup(proc) {
         const execDir = path.join(proc.path, '../../')
         running[execDir] = true
-        console.log(`[multiloader] TERA is started at ${execDir}`)
+        console.log(`[multiloader] ${path.basename(execDir)} started.`)
         if(!clients.origin) {
             clients.origin = execDir
             serialize()
@@ -38,20 +42,20 @@ module.exports = function MultiLoader(region) {
         let nextClient = !running[clients.origin] ? clients.origin : clients.dummies.find((cli) => !running[cli])
         if(!nextClient) {
             nextClient = spawnClient()
-            console.log(`[multiloader] New dummy spawned to ${nextClient}`)
+            console.log(`[multiloader] New dummy ${path.basename(nextClient)} spawned!`)
         }            
         
         reg.setLocation(nextClient)
-        console.log('[multiloader] Ready! You can launch new TERA instance now.')
+        console.log(`[multiloader] ${path.basename(nextClient)} is ready to launch!`)
     }
 
     function onExit(proc) {
         const execDir = path.join(proc.path, '../../')
         running[execDir] = false
-        if(reg.getLocation() !== clients.origin)
+        if(reg.getLocation() !== clients.origin) {
             reg.setLocation(execDir)
-
-        // do we need cleanup option to delete dummies?
+            console.log(`[multiloader] ${path.basename(execDir)} is ready to launch!`)
+        }
     }
 
     function spawnClient() {
