@@ -1,7 +1,7 @@
 {
 	"files": {
 		"index.js": "1be922a71917705a8f431a0762d39d5f79a3719941ad9043c311eff093704966",
-		"module.json": "a66f76efed7235ce90381cb69a4199e58984caf6251d87d60b1972ba7d7f0449",
+		"module.json": "4926304e88bb568ef32bb34782cb7599c82d60790b6dcd385189df38ea9140d3",
 		"node_modules/core-util-is/LICENSE": "33b734d60042d0fe0c92dd1fc1e874193a1c899ec3e276a2eb935d2d0bf5b710",
 		"node_modules/core-util-is/float.patch": "742d8ed95f4f654bf356816c433f2cd7a80580229167ed76184bc12c52099c40",
 		"node_modules/core-util-is/lib/util.js": "6916ffc83b502963dd8f619ce457a731cc1730e2aaaf77fa3f8bcbb60345ca9d",

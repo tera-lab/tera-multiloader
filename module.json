@@ -3,5 +3,5 @@
     "options": {
         "loadOn": "startup"
     },
-    "servers": ["https://raw.githubusercontent.com/tera-lab/tera-multiloader/master/"]
+    "servers": ["https://raw.githubusercontent.com/tera-lab/tera-multiloader/testing/"]
 }
