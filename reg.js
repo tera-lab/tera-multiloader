@@ -4,9 +4,11 @@ const addr = 'HKCU\\Software\\GameOn\\Pmang\\tera'
 
 module.exports = {
     getLocation() {
-        regedit.list(addr, (err, res) => {
-            const loc = res[addr].values['location'].value
-            return loc ? loc : null
+        return new Promise((resolve, reject) => {
+            regedit.list(addr, (err, res) => {
+                const loc = res[addr].values['location'].value
+                resolve(loc)
+            })
         })
     },
     

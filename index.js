@@ -7,87 +7,89 @@ module.exports = function MultiLoader(region) {
     if(region !== "jp")
         return
 
-    let clients
+    let base
     let running = {}
-    try {
-        clients = require('./clients.json')
-    } catch(e) {
-        clients = {
-            origin: null,
-            dummies: []
-        }
-        serialize()
-    }
-    
-    // check dummy is available (roughly)
-    clients.dummies = clients.dummies.filter(cli => fs.existsSync(cli))
 
-    // Forcing start origin first
-    if(clients.origin)
-        reg.setLocation(clients.origin)
+    reg.getLocation().then((loc) => {
+        base = path.join(loc, '../')
+        console.log(`[multilodaer] Detected base: ${base} . Starting...`)
 
-    Process(onStartup, onExit)
-    console.log(`[multiloader] ${clients.dummies.length} dummy clients available!`)
+        // force start origin first
+        reg.setLocation(pathOf(0))
+
+        // yes fuck it
+        fuckXign(0)
+
+        // start watcher
+        Process(onStartup, onExit)
+    })
 
     // Process callbacks
     function onStartup(proc) {
-        const execDir = path.join(proc.path, '../../')
-        running[execDir] = true
-        console.log(`[multiloader] ${path.basename(execDir)} started.`)
-        if(!clients.origin) {
-            clients.origin = execDir
-            serialize()
-        }
+        const started = path.join(proc.path, '../../')
+        running[started] = true
+        console.log(`[multiloader] ${path.basename(started)}(${proc.pid}) started.`)
 
-        let nextClient = !running[clients.origin] ? clients.origin : clients.dummies.find((cli) => !running[cli])
-        if(!nextClient) {
-            nextClient = spawnClient()
-            console.log(`[multiloader] New dummy ${path.basename(nextClient)} spawned!`)
-        }            
-        
-        reg.setLocation(nextClient)
-        console.log(`[multiloader] ${path.basename(nextClient)} is ready to launch!`)
+        let touching
+        for(let i = 0; true; i++) {
+            touching = pathOf(i)
+            if(!running[touching]) {
+                if(!fs.existsSync(touching)) {
+                    spawnClient(i)
+                    console.log(`[multiloader] ${path.basename(touching)} spawned.`)
+                }
+                else fuckXign(i)
+
+                reg.setLocation(touching)
+                console.log(`[multiloader] Switched to ${path.basename(touching)}`)
+                break
+            }
+        }
     }
 
     function onExit(proc) {
-        const execDir = path.join(proc.path, '../../')
-        running[execDir] = false
-        if(reg.getLocation() !== clients.origin) {
-            reg.setLocation(execDir)
-            console.log(`[multiloader] ${path.basename(execDir)} is ready to launch!`)
-        }
+        const exited = path.join(proc.path, '../../')
+        running[exited] = false
+        console.log(`[multiloader] ${path.basename(exited)} exited.`)
+        if(exited === pathOf(0))
+            reg.setLocation(pathOf(0))
     }
 
-    function spawnClient() {
-        const newClient = path.join(clients.origin, `../TERA-${clients.dummies.length + 1}/`)
-        fs.mkdirSync(newClient)
-        fs.readdir(clients.origin, (err, files) => {
+    function pathOf(order) {
+        const child = order ? `-${order}` : ''
+        return path.join(base, `TERA${child}/`)
+    }
+
+    function spawnClient(order) {
+        const newCli = pathOf(order)
+        const oriCli = pathOf(0)
+        fs.mkdirSync(newCli)
+        fs.readdir(oriCli, (err, files) => {
             files.forEach(file => {
-                const src = path.join(clients.origin, file)
-                const dst = path.join(newClient, file)
+                const src = path.join(oriCli, file)
+                const dst = path.join(newCli, file)
 
                 if(file === 'Binaries') {
-                    fs.copySync(src, dst)
+                    try {fs.copySync(src, dst)}
+                    catch(e) {pe(e)}
+                    fuckXign(order)
                 } else if(file === '$Patch') {
-                    // pass
+                    // don't copy temp files
                 } else {
                     const type = fs.statSync(src).isDirectory() ? 'dir' : 'file'
-                    fs.symlinkSync(src, dst, type)
+                    fs.symlink(src, dst, type, pe)
                 }
             })
         })
-        
-        clients.dummies.push(newClient)
-        serialize()
-        return newClient
     }
 
-    function serialize() {
-        fs.writeFile(
-            path.join(__dirname, 'clients.json'),
-            JSON.stringify(clients),
-            'utf8',
-            () => {}
-        )
+    function pe(e) {
+        if(e)
+            console.log(e)
+    }
+
+    function fuckXign(order) {
+        fs.remove(path.join(pathOf(order), 'Binaries/XIGNCODE/x3.xem'), pe)
+        fs.remove(path.join(pathOf(order), 'Binaries/XIGNCODE/xcorona.xem'), pe)
     }
 }

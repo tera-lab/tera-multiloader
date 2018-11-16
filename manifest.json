@@ -1,6 +1,6 @@
 {
 	"files": {
-		"index.js": "37893a10a8dc210a89b47172e954949919a6b7ed4e3f8f91429f1f8666a5ecb6",
+		"index.js": "1be922a71917705a8f431a0762d39d5f79a3719941ad9043c311eff093704966",
 		"module.json": "a66f76efed7235ce90381cb69a4199e58984caf6251d87d60b1972ba7d7f0449",
 		"node_modules/core-util-is/LICENSE": "33b734d60042d0fe0c92dd1fc1e874193a1c899ec3e276a2eb935d2d0bf5b710",
 		"node_modules/core-util-is/float.patch": "742d8ed95f4f654bf356816c433f2cd7a80580229167ed76184bc12c52099c40",
@@ -145,6 +145,6 @@
 		"node_modules/xtend/package.json": "9d3293841d4fe632cd6c61cd27c3469beee6d2dd88bf80024796f271ad5c4624",
 		"node_modules/xtend/test.js": "c3d96d55bb0e1a0e97c9f7d09c6245339edaf940c323582226b6a4562687ae67",
 		"proc.js": "d1faf9429bebd532b01e533714de33a306037fa23273d2b64584bc05fb95323e",
-		"reg.js": "b057f159f3ad6bb152db140fdcaa88cb708cba38d4a97c6987e38e2021e66ae9"
+		"reg.js": "d80eae94ad9e87e32bb804d98028a95959311cae0a990beebc63ca0afb79da04"
 	}
 }
