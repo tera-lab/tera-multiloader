@@ -12,7 +12,7 @@ module.exports = function MultiLoader(region) {
 
     reg.getLocation().then((loc) => {
         base = path.join(loc, '../')
-        console.log(`[multilodaer] Detected base: ${base} . Starting...`)
+        console.log(`[multilodaer] Detected base: ${base}`)
 
         // force start origin first
         reg.setLocation(pathOf(0))
