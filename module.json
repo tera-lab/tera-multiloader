@@ -3,5 +3,8 @@
     "options": {
         "loadOn": "startup"
     },
-    "servers": ["https://raw.githubusercontent.com/tera-lab/tera-multiloader/master/"]
+    "servers": ["https://raw.githubusercontent.com/tera-lab/tera-multiloader/master/"],
+    "dependencies": {
+        "xigncode-bypass": "https://raw.githubusercontent.com/valkyr1e-tera/xigncode-bypass/master/module.json"
+    }
 }
