@@ -1,6 +1,6 @@
 {
 	"files": {
-		"index.js": "852a62f45cc539575acb2c03e84d7ba9a5730e24c6d856cc058f29f4d1cd99cc",
+		"index.js": "a96d1fa8e7f3fe3a0a369491c3da8e635104f4434cb578b41bfdc7645a797d31",
 		"module.json": "a66f76efed7235ce90381cb69a4199e58984caf6251d87d60b1972ba7d7f0449",
 		"node_modules/debug/LICENSE": "98c970de440dcfc77471610aec2377c9d9b0db2b3be6d1add524a586e1d7f422",
 		"node_modules/debug/Makefile": "f6466507e02c62f14e477af08e4a13ec883152b54d87feeffb8f0d6de6e9013b",

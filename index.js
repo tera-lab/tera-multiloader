@@ -3,10 +3,7 @@ const path = require('path')
 const Process = require('./proc.js')
 const reg = require('./reg.js')
 
-module.exports = function MultiLoader(region) {
-    if(region !== "jp")
-        return
-
+module.exports = function MultiLoader() {
     let base
     let running = {}
 
